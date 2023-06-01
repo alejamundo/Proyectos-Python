@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descarga Juegos Gratis</title>
+    <!-- Favicons -->
+    <link href="{% static 'img/favicon.png' %}" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css'%}" rel="stylesheet">
+
+</head>
+<body>
+    <div class="wrap">  
+        <!-- ======= Hero Section ======= -->
+    <section id="hero">
+        <div class="hero-container" data-aos="fade-up">
+          <h2>El destino perfecto para los amantes de los videojuegos.</h2>
+          <a href="{% url 'games'%}" class="btn-get-started scrollto">Obtén tus juegos</a>
+        </div>
+    </section><!-- End Hero -->
+      <!-- ======= Header ======= -->
+    <header id="header" class="d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+  
+          <div class="logo">
+            <h1 class="text-light"><a href="{% url 'index'%}"><span><img src="{% static 'img/favicon.png'%}" alt="logo"></span>Games</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+          </div>
+  
+          <nav id="navbar" class="navbar">
+            <ul>
+              <li><a class="nav-link scrollto active" href="{% url 'index' %}">Inicio</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'games'%}">Games</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'registro'%}">Registro</a></li>
+              <li><a class="nav-link scrollto " href="{% url 'ver'%}">Ver Registros</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav><!-- .navbar -->
+  
+        </div>
+      </header><!-- End Header -->
+      <main id="main">
+      </main>
+
+    </div>
+      <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/aos/aos.js'%}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js'%}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js'%}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js'%}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js'%}"></script>
+
+</body>
+</html>

@@ -1,0 +1,693 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+   <head>
+    <title>Nuatas Busos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/Logo.png'%}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css'%}">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css'%}">
+
+</head>
+
+    <body>
+     <!-- Header -->
+     <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div
+            class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center"
+                href="{% url 'index' %}">
+                <img src="{% static 'assets/img/Logo.png'%}" alt="logo" width="80px"
+                    height="80px">
+                Nautas Busos
+            </a>
+
+            <button class="navbar-toggler border-0" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div
+                class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+                id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul
+                        class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">Sobre
+                                nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'shop' %}">Tienda</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <a
+                        class="nav-icon position-relative text-decoration-none"
+                        href="{% url 'shop-single' %}">
+                        <i
+                            class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                        <span
+                            class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                    </a>
+                    <a
+                        class="nav-icon position-relative text-decoration-none"
+                        href="#" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        <span
+                            class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                    </a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="loginModal" tabindex="-1"
+                        aria-labelledby="loginModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"
+                                        id="loginModalLabel"><img
+                                            src="{% static 'assets/img/user.png'%}"
+                                            alt="imagen user"></h5>
+                                    <button type="button" class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h2>Inicio de sesión</h2>
+                                    <form method="post" action="{% url 'validar_usuario'%}">
+                                        {% csrf_token %} 
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1"
+                                                class="form-label">Correo</label>
+                                            <input type="email"
+                                                class="form-control"
+                                                id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" name="correo" required>
+                                            <div id="emailHelp"
+                                                class="form-text">Ingresa
+                                                con el correo que te
+                                                registraste.</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Contraseña</label>
+                                            <input type="password"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="contrasena" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit"
+                                                class="btn btn-primary">Ingresar</button>
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </form>
+                                    <p class="text-center mt-3">¿No tienes
+                                        una cuenta? <a href="#"
+                                            data-bs-dismiss="modal"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#registroModal">Regístrate
+                                            aquí</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal de Registro -->
+                    <div class="modal fade" id="registroModal" tabindex="-1"
+                        aria-labelledby="registroModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"
+                                        id="registroModalLabel"><img
+                                            src="{% static 'assets/img/registro.png'%}"
+                                            alt="imagen" width="300px"></h5>
+                                    <button type="button" class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <form method="post" action="{% url 'registro_usuario'%}">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1"
+                                                class="form-label">Nombre</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" name="nombre" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Dirección</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="direccion" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Correo</label>
+                                            <input type="email"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="correo" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Celular</label>
+                                            <input type="tel"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="telefono" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Contraseña</label>
+                                            <input type="password"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="contrasena" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit"
+                                                class="btn btn-primary">Registrarse</button>
+                                        </div>
+                                    </form>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Modal 2 admin-->
+                    <a
+                        class="nav-icon position-relative text-decoration-none"
+                        href="#" data-bs-toggle="modal"
+                        data-bs-target="#loginModal2">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        <span
+                            class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">admin</span>
+                    </a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="loginModal2" tabindex="-1"
+                        aria-labelledby="loginModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"
+                                        id="loginModalLabel"><img
+                                            src="{% static 'assets/img/Logo.png'%}"
+                                            alt="imagen user" width="200px"></h5>
+                                    <button type="button" class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h2>Ingreso como Administrador</h2>
+                                    <form method="post" action="{% url 'validar_admin'%}">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1"
+                                                class="form-label">Correo</label>
+                                            <input type="email"
+                                                class="form-control"
+                                                id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" name="correo" required>
+                                            <div id="emailHelp"
+                                                class="form-text">Ingresa
+                                                con el correo que te
+                                                registraste.</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Contraseña</label>
+                                            <input type="password"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="contrasena" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit"
+                                                class="btn btn-primary">Ingresar</button>
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="banner"class="p-3">
+            {% if nombre_usuario %}
+              <strong>  ¡Bienvenido! <br> {{ nombre_usuario }} </strong>
+            {% else %}
+               <strong> Usuario </strong>
+            {% endif %}
+        </div>
+
+    </nav>
+    <!-- Close Header -->
+
+
+        <!-- Start Content -->
+        <div class="container py-5">
+            <p> <strong class="text-success">¡Bienvenido/a </strong> a la tienda
+                de Nautas Busos! Aquí encontrarás un catálogo cuidadosamente
+                seleccionado de busos con estampados espectaculares que reflejan
+                nuestra pasión por la moda y la originalidad.</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4 product-wap rounded-0">
+                        <div class="card rounded-0">
+                            <img class="card-img rounded-0 img-fluid"
+                                src="{% static 'assets/img/shop_01.jpg'%}">
+                            <div
+                                class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                <ul class="list-unstyled">
+                                    <li><a
+                                        class="btn btn-success text-white mt-2"
+                                        onclick="agregarAlCarrito('Buso Explosión Floral $250.000')"
+                                        href="{% url 'shop-single'%}"><i
+                                            class="fas fa-cart-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="#"
+                                class="h3 text-decoration-none"><strong> Buso
+                                    "Explosión Floral":</strong></a>
+                            <p><strong>Detalles:</strong> Sumérgete en un jardín
+                                de colores con nuestro buso "Explosión Floral".
+                                <br> Este diseño vibrante y lleno de vida
+                                presenta una combinación de flores exuberantes
+                                que te harán lucir fresco/a y alegre en
+                                cualquier ocasión.</p>
+                            <ul
+                                class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                <li>M/L/X/XL</li>
+                                <li class="pt-2">
+                                    <span
+                                        class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                </li>
+                            </ul>
+                            <ul
+                                class="list-unstyled d-flex justify-content-center mb-1">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                            </ul>
+                            <p class="text-center mb-0">$250.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 product-wap rounded-0">
+                        <div class="card rounded-0">
+                            <img class="card-img rounded-0 img-fluid"
+                                src="{% static 'assets/img/shop_02.jpg'%}">
+                            <div
+                                class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                <ul class="list-unstyled">
+                                    <li><a
+                                            class="btn btn-success text-white mt-2"
+                                            onclick="agregarAlCarrito('Buso Geométrico Moderno $250.000')"
+                                            href="{% url 'shop-single'%}"><i
+                                                class="fas fa-cart-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="#"
+                                class="h3 text-decoration-none"><strong>Buso
+                                    "Geométrico Moderno":</strong></a>
+                            <p><strong>Detalles:</strong> Marca tendencia con
+                                nuestro buso "Geométrico Moderno". Sus patrones
+                                geométricos en tonos audaces y contrastantes te
+                                permitirán destacar con estilo y sofisticación.
+                                Es perfecto para aquellos que buscan un look
+                                contemporáneo y vanguardista.</p>
+                            <ul
+                                class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                <li>M/L/X/XL</li>
+                                <li class="pt-2">
+                                    <span
+                                        class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                </li>
+                            </ul>
+                            <ul
+                                class="list-unstyled d-flex justify-content-center mb-1">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                            </ul>
+                            <p class="text-center mb-0" id="total">$250.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 product-wap rounded-0">
+                        <div class="card rounded-0">
+                            <img class="card-img rounded-0 img-fluid"
+                                src="{% static 'assets/img/shop_03.jpg'%}">
+                            <div
+                                class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                <ul class="list-unstyled">
+                                    <li><a
+                                        class="btn btn-success text-white mt-2"
+                                        onclick="agregarAlCarrito('Buso Animal Instinct $250.000')"
+                                        href="{% url 'shop-single'%}"><i
+                                            class="fas fa-cart-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="#"
+                                class="h3 text-decoration-none"><strong>Buso
+                                    "Animal Instinct"</strong></a>
+                            <p><strong>Detalles:</strong> Libera tu lado salvaje
+                                con nuestro buso "Animal Instinct". Este
+                                estampado audaz y atrevido presenta motivos de
+                                animales en tonos intensos que reflejarán tu
+                                personalidad fuerte y decidida. ¡Lleva la
+                                elegancia feroz a otro nivel!</p>
+                            <ul
+                                class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                <li>M/L/X/XL</li>
+                                <li class="pt-2">
+                                    <span
+                                        class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                </li>
+                            </ul>
+                            <ul
+                                class="list-unstyled d-flex justify-content-center mb-1">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                            </ul>
+                            <p class="text-center mb-0">$250.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 product-wap rounded-0">
+                        <div class="card rounded-0">
+                            <img class="card-img rounded-0 img-fluid"
+                                src="{% static 'assets/img/shop_04.jpg'%}">
+                            <div
+                                class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                <ul class="list-unstyled">
+                                    <li><a
+                                        class="btn btn-success text-white mt-2"
+                                        onclick="agregarAlCarrito('Buso Estilo Vintage $250.000')"
+                                        href="{% url 'shop-single'%}"><i
+                                            class="fas fa-cart-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="#"
+                                class="h3 text-decoration-none"><strong>Buso
+                                    "Estilo Vintage":</strong></a>
+                            <p><strong>Detalles:</strong> Retrocede en el tiempo
+                                con nuestro buso "Estilo Vintage". Sus
+                                estampados inspirados en épocas pasadas te
+                                brindarán un aire nostálgico y elegante. Ideal
+                                para aquellos que buscan un toque de encanto
+                                clásico en su estilo.</p>
+                            <ul
+                                class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                <li>M/L/X/XL</li>
+                                <li class="pt-2">
+                                    <span
+                                        class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                </li>
+                            </ul>
+                            <ul
+                                class="list-unstyled d-flex justify-content-center mb-1">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                            </ul>
+                            <p class="text-center mb-0">$250.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 product-wap rounded-0">
+                        <div class="card rounded-0">
+                            <img class="card-img rounded-0 img-fluid"
+                                src="{% static 'assets/img/shop_05.jpg'%}">
+                            <div
+                                class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                <ul class="list-unstyled">
+                                    <li><a
+                                        class="btn btn-success text-white mt-2"
+                                        onclick="agregarAlCarrito('Buso Tropical Paradise $250.000')"
+                                        href="{% url 'shop-single'%}"><i
+                                            class="fas fa-cart-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="#"
+                                class="h3 text-decoration-none"><strong>Buso
+                                    "Tropical Paradise":</strong></a>
+                            <p><strong>Detalles:</strong> Disfruta de la
+                                frescura de un paraíso tropical con nuestro buso
+                                "Tropical Paradise". Sus estampados llenos de
+                                palmeras, flores tropicales y colores vibrantes
+                                te transportarán a un ambiente de vacaciones.
+                                Perfecto para días soleados y momentos
+                                relajados.</p>
+                            <ul
+                                class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                <li>M/L/X/XL</li>
+                                <li class="pt-2">
+                                    <span
+                                        class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                </li>
+                            </ul>
+                            <ul
+                                class="list-unstyled d-flex justify-content-center mb-1">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                            </ul>
+                            <p class="text-center mb-0">$250.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 product-wap rounded-0">
+                        <div class="card rounded-0">
+                            <img class="card-img rounded-0 img-fluid"
+                                src="{% static 'assets/img/shop_06.jpg'%}">
+                            <div
+                                class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                <ul class="list-unstyled">
+                                    <li><a
+                                        class="btn btn-success text-white mt-2"
+                                        onclick="agregarAlCarrito('Buso Arte Abstracto $250.000')"
+                                        href="{% url 'shop-single'%}"><i
+                                            class="fas fa-cart-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="#"
+                                class="h3 text-decoration-none"><strong>Buso
+                                    "Arte Abstracto":</strong></a>
+                            <p><strong>Detalles:</strong> Expresa tu creatividad
+                                y espíritu artístico con nuestro buso
+                                "Arte Abstracto". Este diseño abstracto y
+                                vanguardista combina colores audaces y formas
+                                intrigantes para crear un look único y
+                                llamativo. ¡Lleva contigo una obra maestra en
+                                cada paso!</p>
+                            <ul
+                                class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                <li>M/L/X/XL</li>
+                                <li class="pt-2">
+                                    <span
+                                        class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                </li>
+                            </ul>
+                            <ul
+                                class="list-unstyled d-flex justify-content-center mb-1">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                            </ul>
+                            <p class="text-center mb-0">$250.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Content -->
+
+        <!-- Start Footer -->
+    <footer class="bg-dark" id="tempaltemo_footer">
+        <div class="container d-flex  justify-content-center">
+            <div class="row">
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo"><img src="{% static 'assets/img/Logo.png'%}" alt="logo" width="200px"></h2>
+                    
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-12 pt-5">
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li>
+                            <i class="fas fa-map-marker-alt fa-fw"></i>
+                            Medellín Tdea
+                        </li>
+                        <li>
+                            <i class="fa fa-phone fa-fw"></i>
+                            <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope fa-fw"></i>
+                            <a class="text-decoration-none" href="mailto:info@company.com">Nuatas@busos.com</a>
+                        </li>
+                        <li>
+                            
+                           <p> copyright &copy; Stiven & Andrea</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Start Script -->
+    <script src="{% static 'assets/js/jquery-1.11.0.min.js'%}"></script>
+    <script src="{% static 'assets/js/jquery-migrate-1.2.1.min.js'%}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'assets/js/templatemo.js'%}"></script>
+    <script src="{% static 'assets/js/custom.js'%}"></script>
+    <!-- End Script -->
+
+    <script>
+        function agregarAlCarrito(producto) {
+          let carrito = sessionStorage.getItem('carrito');
+    
+          if (!carrito) {
+            carrito = [];
+          } else {
+            carrito = JSON.parse(carrito);
+          }
+    
+          carrito.push(producto);
+          sessionStorage.setItem('carrito', JSON.stringify(carrito));
+        }
+    </script>
+    </body>
+
+</html>

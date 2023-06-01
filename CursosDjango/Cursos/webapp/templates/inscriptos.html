@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Cursos Tdea</title>
+        <link rel="shortcut icon" href="{%static 'img/logo.png'%}"
+            type="image/x-icon" />
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,
+            shrink-to-fit=no" />
+
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link rel="stylesheet" type="text/css"
+            href="{% static 'css/style.css' %}">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+            crossorigin="anonymous" />
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#"></a>
+                    <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"><span
+                            class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse"
+                        id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-2">
+                            <li class="nav-item">
+                                <a class="nav-link active " aria-current="page"
+                                    href="{% url 'index'%}"><img
+                                        src="{%static 'img/logo.png'%}"
+                                        alt="logo" width="150px">Cursos Tdea</a>
+                            </li>
+                        </ul>
+
+                        <div class="d-flex person">
+                            <!--salir-->
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-2 p-4">
+                                <li class="nav-item">
+                                    <a class="nav-link active "
+                                        href="{% url 'index'%}">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                        Salir</a>
+                                </li>
+                            </ul>
+                            <!--usuario-->
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-2 p-4">
+                                <li class="nav-item">
+                                    <a class="nav-link active "><i
+                                            class="bi bi-person-check-fill"></i>
+                                        {{usuario}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main class="p-4">
+            {% if messages %}
+            <div class="alert alert-success">
+                <ul class="m-0">
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <form action="{% url 'inscriptos'%}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-dark">Ver todos los
+                    Inscriptos</button>
+            </form>
+            <h1>Listado de Inscriptos</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col"><i class="bi bi-gender-ambiguous"></i>
+                            Nombre</th>
+                        <th scope="col">Cedula</th>
+                        <th scope="col"><i class="bi bi-envelope-at"></i> Correo</th>
+                        <th scope="col"><i class="bi bi-hand-index-fill"></i>
+                            Curso de Inscripción</th>
+                        <th scope="col"> <i class="bi bi-trash3"></i> Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for registro in registros %}
+                    <tr>
+                        <th scope="row">{{registro.id}}</th>
+                        <td>{{registro.nombre}}</td>
+                        <td>{{registro.cedula}}</td>
+                        <td>{{registro.correo}}</td>
+                        <td>{{registro.curso}}</td>
+                        <td>
+                            <a  href="{% url 'elimina' registro.id %}" class="btn" ><i class="bi bi-trash3"></i></a>
+                        </td>
+
+                    </form>
+
+                </tr>
+                {% endfor %}
+
+            </main>
+            <footer>
+                <!-- place footer here -->
+            </footer>
+            <!-- Bootstrap JavaScript Libraries -->
+            <script
+src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+crossorigin="anonymous"></script>
+            <script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+crossorigin="anonymous"></script>
+        </body>
+    </html>

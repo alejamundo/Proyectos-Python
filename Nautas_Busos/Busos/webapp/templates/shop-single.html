@@ -1,0 +1,565 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <title>Nuatas Busos</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="shortcut icon" type="image/x-icon"
+            href="{% static 'assets/img/Logo.png'%}">
+
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="{% static 'assets/css/templatemo.css'%}">
+        <link rel="stylesheet" href="{% static 'assets/css/custom.css'%}">
+
+        <!-- Load fonts style after rendering the layout styles -->
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+        <link rel="stylesheet"
+            href="{% static 'assets/css/fontawesome.min.css'%}">
+
+    </head>
+
+    <body>
+        <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div
+            class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center"
+                href="{% url 'index' %}">
+                <img src="{% static 'assets/img/Logo.png'%}" alt="logo" width="80px"
+                    height="80px">
+                Nautas Busos
+            </a>
+
+            <button class="navbar-toggler border-0" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div
+                class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+                id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul
+                        class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">Sobre
+                                nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'shop' %}">Tienda</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <a
+                        class="nav-icon position-relative text-decoration-none"
+                        href="{% url 'shop-single' %}">
+                        <i
+                            class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                        <span
+                            class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                    </a>
+                    <a
+                        class="nav-icon position-relative text-decoration-none"
+                        href="#" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        <span
+                            class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                    </a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="loginModal" tabindex="-1"
+                        aria-labelledby="loginModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"
+                                        id="loginModalLabel"><img
+                                            src="{% static 'assets/img/user.png'%}"
+                                            alt="imagen user"></h5>
+                                    <button type="button" class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h2>Inicio de sesión</h2>
+                                    <form method="post" action="{% url 'validar_usuario'%}">
+                                        {% csrf_token %} 
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1"
+                                                class="form-label">Correo</label>
+                                            <input type="email"
+                                                class="form-control"
+                                                id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" name="correo" required>
+                                            <div id="emailHelp"
+                                                class="form-text">Ingresa
+                                                con el correo que te
+                                                registraste.</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Contraseña</label>
+                                            <input type="password"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="contrasena" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit"
+                                                class="btn btn-primary">Ingresar</button>
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </form>
+                                    <p class="text-center mt-3">¿No tienes
+                                        una cuenta? <a href="#"
+                                            data-bs-dismiss="modal"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#registroModal">Regístrate
+                                            aquí</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal de Registro -->
+                    <div class="modal fade" id="registroModal" tabindex="-1"
+                        aria-labelledby="registroModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"
+                                        id="registroModalLabel"><img
+                                            src="{% static 'assets/img/registro.png'%}"
+                                            alt="imagen" width="300px"></h5>
+                                    <button type="button" class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <form method="post" action="{% url 'registro_usuario'%}">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1"
+                                                class="form-label">Nombre</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" name="nombre" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Dirección</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="direccion" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Correo</label>
+                                            <input type="email"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="correo" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Celular</label>
+                                            <input type="tel"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="telefono" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Contraseña</label>
+                                            <input type="password"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="contrasena" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit"
+                                                class="btn btn-primary">Registrarse</button>
+                                        </div>
+                                    </form>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Modal 2 admin-->
+                    <a
+                        class="nav-icon position-relative text-decoration-none"
+                        href="#" data-bs-toggle="modal"
+                        data-bs-target="#loginModal2">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        <span
+                            class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">admin</span>
+                    </a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="loginModal2" tabindex="-1"
+                        aria-labelledby="loginModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"
+                                        id="loginModalLabel"><img
+                                            src="{% static 'assets/img/Logo.png'%}"
+                                            alt="imagen user" width="200px"></h5>
+                                    <button type="button" class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h2>Ingreso como Administrador</h2>
+                                    <form method="post" action="{% url 'validar_admin'%}">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1"
+                                                class="form-label">Correo</label>
+                                            <input type="email"
+                                                class="form-control"
+                                                id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" name="correo" required>
+                                            <div id="emailHelp"
+                                                class="form-text">Ingresa
+                                                con el correo que te
+                                                registraste.</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Contraseña</label>
+                                            <input type="password"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="contrasena" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit"
+                                                class="btn btn-primary">Ingresar</button>
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="banner"class="p-3">
+            {% if nombre_usuario %}
+              <strong>  ¡Bienvenido! <br> {{ nombre_usuario }} </strong>
+            {% else %}
+               <strong> Usuario </strong>
+            {% endif %}
+        </div>
+
+    </nav>
+    <!-- Close Header -->
+
+        <!-- Open Content -->
+        <section class="bg-light">
+            {% if messages %}
+            <div class="alert alert-success">
+                <ul class="m-0">
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="container pb-5">
+                <h3>Compras Seleccionadas</h3>
+                <ul class="list-group" id="compras-seleccionadas">
+                </ul>
+                <a href="{% url 'shop'%}" class="btn btn-success m-4">Volver a
+                    la
+                    tienda</a>
+                <h4>Total de la Compra: <span id="total">$0</span></h4>
+
+                <button class="btn btn-success m-4" data-bs-toggle="modal"
+                    data-bs-target="#finalizarCompraModal" onclick="compra()">Finalizar
+                    Compra</button>
+                <!--modal pago -->
+                <!-- Modal de Finalizar Compra -->
+                <div class="modal fade" id="finalizarCompraModal" tabindex="-1"
+                    aria-labelledby="finalizarCompraModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"
+                                    id="finalizarCompraModalLabel">Factura del
+                                    pedido</h5>
+                                <button type="button" class="btn-close"
+                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <form method="post" action="{% url 'compra'%}" id="myForm">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1"
+                                            class="form-label">Factura a nombre
+                                            de :</label>
+                                        <input type="text" class="form-control"
+                                            id="exampleInputEmail1"
+                                            aria-describedby="emailHelp"
+                                            name="nombre" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1"
+                                            class="form-label">Dirreción de
+                                            envio</label>
+                                        <input type="text"
+                                            class="form-control"
+                                            id="exampleInputPassword1"
+                                            name="direccion" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1"
+                                            class="form-label">Telefono</label>
+                                        <input type="number"
+                                            class="form-control"
+                                            id="exampleInputPassword1"
+                                            name="telefono" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1"
+                                            class="form-label">Medio de pago</label>
+                                        <select name="medio_pago" id
+                                            class="form-control">
+                                            <option value="Contra entrega">Pago
+                                                Contra entrega</option>
+                                            <option value="Targeta">Pago Tajeta</option>
+                                            <option value="Credito">Pago a
+                                                credito</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1"
+                                            class="form-label">Compras:</label>
+                                        <div id="compras">
+
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1"
+                                            class="form-label">Total:</label>
+                                        <label id="totall"></label>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit"
+                                            class="btn btn-primary">Comprar</button>
+                                        <button type="button"
+                                            class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Close Content -->
+
+        <!-- Start Footer -->
+        <footer class="bg-dark" id="tempaltemo_footer">
+            <div class="container d-flex  justify-content-center">
+                <div class="row">
+
+                    <div class="col-md-4 pt-5">
+                        <h2
+                            class="h2 text-success border-bottom pb-3 border-light logo"><img
+                                src="{% static 'assets/img/Logo.png'%}"
+                                alt="logo" width="200px"></h2>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 pt-5">
+                        <ul class="list-unstyled text-light footer-link-list">
+                            <li>
+                                <i class="fas fa-map-marker-alt fa-fw"></i>
+                                Medellín Tdea
+                            </li>
+                            <li>
+                                <i class="fa fa-phone fa-fw"></i>
+                                <a class="text-decoration-none"
+                                    href="tel:010-020-0340">010-020-0340</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope fa-fw"></i>
+                                <a class="text-decoration-none"
+                                    href="mailto:info@company.com">Nuatas@busos.com</a>
+                            </li>
+                            <li>
+
+                                <p> copyright &copy; Stiven & Andrea</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+        <!-- End Footer -->
+
+        <!-- Start Script -->
+        <script src="{% static 'assets/js/jquery-1.11.0.min.js'%}"></script>
+        <script src="{% static 'assets/js/jquery-migrate-1.2.1.min.js'%}"></script>
+        <script src="{% static 'assets/js/bootstrap.bundle.min.js'%}"></script>
+        <script src="{% static 'assets/js/templatemo.js'%}"></script>
+        <script src="{% static 'assets/js/custom.js'%}"></script>
+        <!-- End Script -->
+
+        <!-- Start Slider Script -->
+        <script src="{% static 'assets/js/slick.min.js'%}"></script>
+        <script>
+            $('#carousel-related-product').slick({
+                infinite: true,
+                arrows: false,
+                slidesToShow: 4,
+                slidesToScroll: 3,
+                dots: true,
+                responsive: [{
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 3
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 3
+                        }
+                    }
+                ]
+            });
+    </script>
+        <!-- End Slider Script -->
+
+        <script>
+        function mostrarComprasSeleccionadas() {
+          const listaCompras = document.getElementById('compras-seleccionadas');
+          listaCompras.innerHTML = '';
+    
+          let carrito = sessionStorage.getItem('carrito');
+          let subtotal=0; 
+          if (!carrito) {
+            return;
+          }
+          
+    
+          carrito = JSON.parse(carrito);
+    
+          for (let i = 0; i < carrito.length; i++) {
+            subtotal++;
+            const compra = carrito[i];
+            const listItem = document.createElement('li');
+            listItem.classList.add('list-group-item');
+            listItem.innerHTML = `
+              <div class="d-flex justify-content-between align-items-center">
+                <span>${compra}</span>
+                <button class="btn btn-danger" onclick="eliminarDelCarrito(${i})">Eliminar</button>
+              </div>
+            `;
+           
+            listaCompras.appendChild(listItem);
+          }
+          document.getElementById("total").innerHTML=subtotal*250000;
+        }
+        
+        function eliminarDelCarrito(index) {
+          let carrito = sessionStorage.getItem('carrito');
+    
+          if (!carrito) {
+            return;
+          }
+    
+          carrito = JSON.parse(carrito);
+          carrito.splice(index, 1);
+          sessionStorage.setItem('carrito', JSON.stringify(carrito));
+    
+          mostrarComprasSeleccionadas();
+        }
+
+        function compra() {
+            const listaCompras = document.getElementById('compras');
+            listaCompras.innerHTML = '';
+    
+            let carrito = sessionStorage.getItem('carrito');
+            let subtotal=0; 
+            if (!carrito) {
+                return;
+            }
+          
+    
+            carrito = JSON.parse(carrito);
+    
+            for (let i = 0; i < carrito.length; i++) {
+                subtotal++;
+                const compra = carrito[i];
+                const listItem = document.createElement('label');
+                listItem.classList.add('list-group-item');
+                listItem.innerHTML = `
+                <label >${compra}</label>
+                `;
+           
+                listaCompras.appendChild(listItem);
+            }
+            document.getElementById("totall").innerHTML=subtotal*250000; 
+            // Crear un campo oculto en el formulario y asignarle el valor del total
+            const totalInput = document.createElement('input');
+            totalInput.type = 'hidden';
+            totalInput.name = 'total';
+            totalInput.value = subtotal*250000;;
+            document.getElementById('myForm').appendChild(totalInput);
+        }
+    
+        mostrarComprasSeleccionadas();
+
+       
+    </script>
+
+    </body>
+
+</html>

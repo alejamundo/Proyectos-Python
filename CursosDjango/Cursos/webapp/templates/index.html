@@ -1,0 +1,253 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Cursos Tdea</title>
+    <link rel="shortcut icon" href="{% static 'img/logo.png'%}"
+      type="image/x-icon" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+      shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous" />
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-2">
+              <li class="nav-item">
+                <a class="nav-link active " aria-current="page"
+                  href="{% url 'index'%}"><img src="{% static 'img/logo.png'%}"
+                    alt="logo"
+                    width="150px">Cursos Tdea</a>
+              </li>
+            </ul>
+
+            <div class="d-flex person">
+              <!--Incribirse-->
+              <ul class="navbar-nav me-auto mb-2 mb-lg-2 p-4">
+                <li class="nav-item">
+                  <a class="nav-link active " href data-bs-toggle="modal"
+                    data-bs-target="#exampleModal1"
+                    data-bs-whatever="@mdo"><i class="bi bi-person-circle icon"></i>
+                    Inscribirse</a>
+                </li>
+              </ul>
+              
+              <div class="modal fade" id="exampleModal1" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel"><img
+                          src="{% static 'img/inscripcion.jpg'%}"
+                          alt="inscripcion"
+                          width="300px"></h1>
+                      <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>    
+                    <div class="modal-body">
+                      <form method="post" action="{% url 'registro'%}"
+                        id="formulario">
+                        {% csrf_token %}
+                        <h3>Formulario de Inscripción</h3>
+                       
+
+                        <div class="mb-3">
+                          <label for="recipient-name" class="col-form-label">Nombre
+                            Completo:</label>
+                          <input type="text" class="form-control"
+                            id="recipient-name" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="message-text" class="col-form-label">Cedula:</label>
+                          <input type="number" class="form-control"
+                            id="recipient-name" name="cedula" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="message-text" class="col-form-label">Correo:</label>
+                          <input type="email" class="form-control"
+                            id="recipient-name" name="correo" required>
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="message-text" class="col-form-label">Curso:</label>
+                          <select name="curso">
+                            <option value="python">Python</option>
+                            <option value="csharp">C#</option>
+                            <option value="php">PHP</option>
+                          </select>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Registrarse</button>
+                        </div>
+
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--end Incribirse-->
+
+              <ul class="navbar-nav me-auto mb-2 mb-lg-2 p-4">
+                <li class="nav-item">
+                  <a class="nav-link active " href data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    data-bs-whatever="@mdo"><i class="bi
+                      bi-journal-bookmark-fill icon"></i>Inscriptos</a>
+                </li>
+              </ul>
+
+              <div class="modal fade" id="exampleModal" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel"><img
+                          src="{% static 'img/loguin.png'%}" alt="login"
+                          width="300px"
+                          class="imgc"></h1>
+                      <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                      <form method="post" action="{% url 'login'%}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                          <label for="recipient-name" class="col-form-label">Usuario:</label>
+                          <input type="text" class="form-control"
+                            id="recipient-name" name="usuario" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="message-text" class="col-form-label">Contraseña:</label>
+                          <input type="password" class="form-control"
+                            id="recipient-name" name="pwd" required>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Ingresar</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="p-lg-4 ">
+      <div id="carouselExampleIndicators" class="carousel slide p-4">
+        <div class="carousel-indicators">
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            {% if messages %}
+              <div class="alert alert-success">
+                <ul class="m-0">
+                  {% for message in messages %}
+                  <li>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+            <img src="{% static 'img/cursos.jpg'%}" class="d-block w-100"
+              alt="Imagen">
+          </div>
+        </div>
+      </div>
+      <!--Cars-->
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+          <div class="card">
+            <img src="{% static 'img/c1.png'%}" class="card-img-top"
+              alt="imagen">
+            <div class="card-body">
+              <h5 class="card-title"><strong class="color"> Curso de Python
+                </strong></h5>
+              <p class="card-text">En el nuevo curso profesional de Python nos
+                enfocaremos en aprender todo los necesario para convertirnos en
+                desarrolladores Python. <br> Aplicando las mejores practicas de
+                programación logrando así un código mucho más Pythonico.<br>El
+                curso se encuentra dirigido a todas aquellas personas con
+                conocimientos básicos de programación.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img src="{% static 'img/c3.png'%}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"> <strong class="color"> Curso de C#
+                </strong></h5>
+              <p class="card-text">Aprende C# desde cero para sentar las bases
+                de programación con Visual Studio y empieza a crear aplicaciones
+                para .NET.
+                <br>Lo que aprenderás en este curso: <br>
+                Aprenderás a dominar el lenguaje de C# desde 0 <br>
+                Aprenderás a usar Visual Studio <br>
+                Conceptos básicos de programación y cómo se aplican en C#,
+                Conceptos de OOP y cómo se aplican en C#
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img src="{% static 'img/c2.png'%}" class="card-img-top"
+              alt="imagen">
+            <div class="card-body">
+              <h5 class="card-title"><strong class="color"> Curso de php</strong></h5>
+              <p class="card-text">Aprende la última versión de PHP, el lenguaje
+                de programación backend más importante de la web. <br>
+
+                ¿Qué aprenderás? <br>
+                Las bases de PHP. <br>
+                Declaración de variables, arrays; uso de estructuras
+                condicionales, repetitivas. Además cómo organizar el código de
+                manera que sea reutilizable y fácil de leer.
+                Instalación de dependencias utilizando Composer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+    <footer>
+      <!-- place footer here -->
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+crossorigin="anonymous"></script>
+    <script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+crossorigin="anonymous"></script>
+    <script src="{%static 'js/script.js'%}"></script>
+  </body>
+</html>

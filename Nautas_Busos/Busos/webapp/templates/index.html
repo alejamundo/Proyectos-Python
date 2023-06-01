@@ -1,0 +1,496 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Nuatas Busos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/Logo.png'%}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css'%}">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css'%}">
+
+</head>
+
+<body>
+   <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div
+            class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center"
+                href="{% url 'index' %}">
+                <img src="{% static 'assets/img/Logo.png'%}" alt="logo" width="80px"
+                    height="80px">
+                Nautas Busos
+            </a>
+
+            <button class="navbar-toggler border-0" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div
+                class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+                id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul
+                        class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">Sobre
+                                nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'shop' %}">Tienda</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <a
+                        class="nav-icon position-relative text-decoration-none"
+                        href="{% url 'shop-single' %}">
+                        <i
+                            class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                        <span
+                            class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                    </a>
+                    <a
+                        class="nav-icon position-relative text-decoration-none"
+                        href="#" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        <span
+                            class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                    </a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="loginModal" tabindex="-1"
+                        aria-labelledby="loginModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"
+                                        id="loginModalLabel"><img
+                                            src="{% static 'assets/img/user.png'%}"
+                                            alt="imagen user"></h5>
+                                    <button type="button" class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h2>Inicio de sesión</h2>
+                                    <form method="post" action="{% url 'validar_usuario'%}">
+                                        {% csrf_token %} 
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1"
+                                                class="form-label">Correo</label>
+                                            <input type="email"
+                                                class="form-control"
+                                                id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" name="correo" required>
+                                            <div id="emailHelp"
+                                                class="form-text">Ingresa
+                                                con el correo que te
+                                                registraste.</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Contraseña</label>
+                                            <input type="password"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="contrasena" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit"
+                                                class="btn btn-primary">Ingresar</button>
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </form>
+                                    <p class="text-center mt-3">¿No tienes
+                                        una cuenta? <a href="#"
+                                            data-bs-dismiss="modal"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#registroModal">Regístrate
+                                            aquí</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal de Registro -->
+                    <div class="modal fade" id="registroModal" tabindex="-1"
+                        aria-labelledby="registroModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"
+                                        id="registroModalLabel"><img
+                                            src="{% static 'assets/img/registro.png'%}"
+                                            alt="imagen" width="300px"></h5>
+                                    <button type="button" class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <form method="post" action="{% url 'registro_usuario'%}">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1"
+                                                class="form-label">Nombre</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" name="nombre" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Dirección</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="direccion" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Correo</label>
+                                            <input type="email"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="correo" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Celular</label>
+                                            <input type="tel"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="telefono" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Contraseña</label>
+                                            <input type="password"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="contrasena" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit"
+                                                class="btn btn-primary">Registrarse</button>
+                                        </div>
+                                    </form>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Modal 2 admin-->
+                    <a
+                        class="nav-icon position-relative text-decoration-none"
+                        href="#" data-bs-toggle="modal"
+                        data-bs-target="#loginModal2">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        <span
+                            class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">admin</span>
+                    </a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="loginModal2" tabindex="-1"
+                        aria-labelledby="loginModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"
+                                        id="loginModalLabel"><img
+                                            src="{% static 'assets/img/Logo.png'%}"
+                                            alt="imagen user" width="200px"></h5>
+                                    <button type="button" class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h2>Ingreso como Administrador</h2>
+                                    <form method="post" action="{% url 'validar_admin'%}">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1"
+                                                class="form-label">Correo</label>
+                                            <input type="email"
+                                                class="form-control"
+                                                id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" name="correo" required>
+                                            <div id="emailHelp"
+                                                class="form-text">Ingresa
+                                                con el correo que te
+                                                registraste.</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label
+                                                for="exampleInputPassword1"
+                                                class="form-label">Contraseña</label>
+                                            <input type="password"
+                                                class="form-control"
+                                                id="exampleInputPassword1" name="contrasena" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit"
+                                                class="btn btn-primary">Ingresar</button>
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="banner"class="p-3">
+            {% if nombre_usuario %}
+              <strong>  ¡Bienvenido! <br> {{ nombre_usuario }} </strong>
+            {% else %}
+               <strong> Usuario </strong>
+            {% endif %}
+        </div>
+
+    </nav>
+    <!-- Close Header -->
+
+    <!-- Start Banner Hero -->
+    {% if messages %}
+    <div class="alert alert-warning">
+      <ul class="m-0">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="{% static 'assets/img/banner_img_01.png'%}" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left align-self-center">
+                                <h1 class="h1 text-success"><b>Nautas</b> Busos</h1>
+                                <h3 class="h2">¡Explora el estilo con nuestros estampados espectaculares!</h3>
+                                <p>
+                                    Sumérgete en el mundo de la moda con Nautas Busos y descubre nuestra colección de busos únicos. ¡Estampados espectaculares que te harán destacar! 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="{% static 'assets/img/banner_img_02.png'%}" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left">
+                                <h1 class="h1"><strong>Calidad</strong> que se siente.</h1>
+                                <h3 class="h2"> ¡Viste con confianza y estilo!</h3>
+                                <p>
+                                    Estilo y comodidad en uno solo: Nautas Busos ofrece diseños modernos y exclusivos que se adaptan a tu personalidad. ¡Marca tendencia con nuestros estampados vibrantes!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="{% static 'assets/img/banner_img_03.png'%}" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left">
+                                <h1 class="h1">Destaca con <strong>Nautas.</strong></h1>
+                                <h3 class="h2"> ¡Únete a la tendencia de Nautas Busos y deja que tu estilo hable por sí mismo!</h3>
+                                <p>
+                                    Destaca en cualquier ocasión: Ya sea para una salida casual o para lucir a la moda en tus aventuras al aire libre, nuestros busos con estampados espectaculares son la elección perfecta.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+    <!-- End Banner Hero -->
+
+    <!-- Start Featured Product -->
+    <section class="bg-light">
+        <div class="container py-5">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">¡Descubre nuestros productos destacados!</h1>
+                    <p>
+                        En Nautas Busos, ofrecemos una selección exclusiva de productos que combinan estilo, calidad y originalidad. Estos son algunos de nuestros destacados:
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="{% static 'assets/img/feature_prod_01.jpg'%}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right">$240.00</li>
+                            </ul>
+                            <a class="h2 text-decoration-none text-dark">Estampado Salvaje</a>
+                            <p class="card-text">
+                                Atrévete a destacar con nuestro buso "Estampado Salvaje". Su diseño audaz y vanguardista te permitirá expresar tu personalidad y captar todas las miradas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="{% static 'assets/img/feature_prod_02.jpg'%}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right">$280.00</li>
+                            </ul>
+                            <a class="h2 text-decoration-none text-dark">Elegancia Floral</a>
+                            <p class="card-text">
+                                Sumérgete en la belleza de la naturaleza con un toque de misterio. Nuestro buso "Elegancia Floral con Calaveras" combina flores y calaveras en un estampado único que te hará lucir radiante y rebelde al mismo tiempo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="{% static 'assets/img/feature_prod_03.jpg'%}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                </li>
+                                <li class="text-muted text-right">$260.00</li>
+                            </ul>
+                            <a class="h2 text-decoration-none text-dark">Estilo Urbano</a>
+                            <p class="card-text">
+                                Si buscas un estilo urbano y moderno, nuestro buso "Estilo Urbano" es perfecto para ti. Con su estampado urbano y corte contemporáneo, te aseguramos un look fresco y a la moda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Featured Product -->
+
+
+   <!-- Start Footer -->
+    <footer class="bg-dark" id="tempaltemo_footer">
+        <div class="container d-flex  justify-content-center">
+            <div class="row">
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo"><img src="{% static 'assets/img/Logo.png'%}" alt="logo" width="200px"></h2>
+                    
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-12 pt-5">
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li>
+                            <i class="fas fa-map-marker-alt fa-fw"></i>
+                            Medellín Tdea
+                        </li>
+                        <li>
+                            <i class="fa fa-phone fa-fw"></i>
+                            <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope fa-fw"></i>
+                            <a class="text-decoration-none" href="mailto:info@company.com">Nuatas@busos.com</a>
+                        </li>
+                        <li>
+                            
+                           <p> copyright &copy; Stiven & Andrea</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Start Script -->
+    <script src="{% static 'assets/js/jquery-1.11.0.min.js'%}"></script>
+    <script src="{% static 'assets/js/jquery-migrate-1.2.1.min.js'%}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'assets/js/templatemo.js'%}"></script>
+    <script src="{% static 'assets/js/custom.js'%}"></script>
+    <!-- End Script -->
+</body>
+
+</html>
